@@ -4,10 +4,18 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start":"node .",
+    "start": "node ./server.js",
+    "stat-dev": "nodemon ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
