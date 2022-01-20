@@ -7,14 +7,12 @@ const config = require('../config/db.json');
 const dbConfig = config[process.env.NODE_ENV || 'development'];
 const currentFile = path.basename(__filename);
 
-
 const client = new Client(dbConfig);
 client.connect();
-process.on('beforeExit', ()=>
-  client.end());
+process.on('beforeExit', ()=>client.end());
 
 const db = {
-  client
+  client,
 }
 
 fs.readdirSync(__dirname)
@@ -24,6 +22,5 @@ fs.readdirSync(__dirname)
     Model.client= client;
     db[Model.name] = Model;
 });
-
 
 module.exports = db;

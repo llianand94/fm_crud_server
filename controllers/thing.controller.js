@@ -10,9 +10,9 @@ module.exports.createThing = async (req, res, next) =>{
     }
     res.status(400).send('Thing was not created')
   }catch(err){
-    next(err)
+    next(err);
   }
-}
+};
 
 module.exports.getAllThings = async (req, res, next)=>{
   try{
@@ -24,17 +24,17 @@ module.exports.getAllThings = async (req, res, next)=>{
   }catch(err){
     next(err);
   }
-}
+};
 
-module.exports.gething = async(req,res,next)=>{
+module.exports.getThing = async (req,res,next)=>{
   try{
-    const {id} = req.params;
+    const {params:{id}} = req;
     const thing = await Thing.readByPk(id);
-    if(arrayThings.length){
+    if(thing){
       res.status(200).send({data:thing});
     }
     res.status(404).send();
   }catch(err){
     next(err);
   }
-}
+};
