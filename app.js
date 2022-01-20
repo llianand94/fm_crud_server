@@ -5,6 +5,7 @@ const app = express();
 app.use(express.json());
 app.use(router);
 
+
 app.use((err, req, res, next)=>{
   res.status(500).send(err)
 });

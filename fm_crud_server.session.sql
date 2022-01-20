@@ -10,7 +10,7 @@ CREATE TABLE "things" (
 INSERT INTO "things"("body") VALUES ('test');
 
 UPDATE "things" 
-SET "body" = 'new body', "updatedAt" = CURRENT_TIMESTAMP,
+SET "body" = 'new body', "updatedAt" = CURRENT_TIMESTAMP
 WHERE "id"= 1;
 
 DELETE FROM "things" WHERE "id"= 1;

@@ -34,16 +34,23 @@ class Thing{
     return rows;
   };
 
-  static async updateByPk(){
+  static async updateByPk(values){
+    const insertAttrs = Object.entries(this.attributes)
+    .filter(([attr])=>attr in values)
+    .map(([attr])=>attr);
 
+    const insertStrAttr = insertAttrs
+    .map(attr=> `"${attr}"`)
+    .join(',');
 
-    await this.client.query(`UPDATE "things" 
+    const {rows} = await this.client.query(`UPDATE "${this.tableName}" 
     SET "body" = 'new body', "updatedAt" = CURRENT_TIMESTAMP,
-    WHERE "id"= 1;`)
+    WHERE "id"= ${value};`);
+    return rows;
   };
 
   static async deleteByPk(value){
-    const {rows} = await this.client.query(`DELETE FROM ${this.tableName} WHERE "id" = ${value} RETURNING *;`);
+    const {rows} = await this.client.query(`DELETE FROM "${this.tableName}" WHERE "id" = ${value} RETURNING *;`);
     return rows;
   };
 }
