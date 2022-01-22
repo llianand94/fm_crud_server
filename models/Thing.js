@@ -34,18 +34,23 @@ class Thing{
     return rows;
   };
 
-  static async updateByPk(values){
-    const insertAttrs = Object.entries(this.attributes)
-    .filter(([attr])=>attr in values)
-    .map(([attr])=>attr);
-
-    const insertStrAttr = insertAttrs
-    .map(attr=> `"${attr}"`)
-    .join(',');
+  static async updateByPk(valuePk, values){
+    
+    // const now = new Date(); 
+    const insertAttrs = Object.entries(values)
+      .filter(([attr])=>attr in attributes)
+      .map(([key,value])=>(
+        typeof value==='boolean' || typeof value === 'number')?
+        `"${key}" = ${value}`: 
+        `"${key}" = '${value}'`);
+  
+    const getString = insertAttrs
+    .join(', ');
 
     const {rows} = await this.client.query(`UPDATE "${this.tableName}" 
-    SET "body" = 'new body', "updatedAt" = CURRENT_TIMESTAMP,
-    WHERE "id"= ${value};`);
+    SET ${getString}, "updatedAt" = CURRENT_TIMESTAMP,
+    WHERE "id"= ${valuePk}
+    RETURNING *;`);
     return rows;
   };
 

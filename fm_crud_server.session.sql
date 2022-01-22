@@ -7,10 +7,11 @@ CREATE TABLE "things" (
   "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO "things"("body") VALUES ('test');
+-- INSERT INTO "things"("body") VALUES ('test');
 
-UPDATE "things" 
-SET "body" = 'new body', "updatedAt" = CURRENT_TIMESTAMP
-WHERE "id"= 1;
+-- UPDATE "things" 
+-- SET "body" = 'new body', "updatedAt" = CURRENT_TIMESTAMP
+-- WHERE "id"= 9
+-- RETURNING *;
 
-DELETE FROM "things" WHERE "id"= 1;
+-- DELETE FROM "things" WHERE "id"= 1;
