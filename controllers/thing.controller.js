@@ -43,11 +43,12 @@ module.exports.updateThing = async (req, res, next) =>{
   try{
     const {body,params:{id}} = req;
     const thing = await Thing.updateByPk(id,body);    
-    if(data){
+    if(thing){
       res.status(201).send({data:thing});
     }
     res.status(404).send();
   }catch(err){
+    console.log(err);
     next(err);
   }
 }

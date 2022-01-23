@@ -24,9 +24,9 @@ const updateByPk= function(valuePk, values){
   .join(', ');
     
   return (`UPDATE "${tableName}" 
-    SET ${getString}, "updatedAt" = ${now},
+    SET ${getString}, "updatedAt" = CURRENT_TIMESTAMP
     WHERE "id"= ${valuePk}
     RETURNING *;`);
-  // const getValue =   
+     
 }
 console.log(updateByPk(valuePk,values));

@@ -35,10 +35,8 @@ class Thing{
   };
 
   static async updateByPk(valuePk, values){
-    
-    // const now = new Date(); 
     const insertAttrs = Object.entries(values)
-      .filter(([attr])=>attr in attributes)
+      .filter(([attr])=>attr in this.attributes)
       .map(([key,value])=>(
         typeof value==='boolean' || typeof value === 'number')?
         `"${key}" = ${value}`: 
@@ -46,11 +44,11 @@ class Thing{
   
     const getString = insertAttrs
     .join(', ');
-
-    const {rows} = await this.client.query(`UPDATE "${this.tableName}" 
-    SET ${getString}, "updatedAt" = CURRENT_TIMESTAMP,
+    const queryStr = `UPDATE "${this.tableName}" 
+    SET ${getString}, "updatedAt" = CURRENT_TIMESTAMP
     WHERE "id"= ${valuePk}
-    RETURNING *;`);
+    RETURNING *;`;
+    const {rows} = await this.client.query(queryStr);    
     return rows;
   };
 
